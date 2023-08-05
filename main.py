@@ -2,7 +2,6 @@ import smtplib, ssl, csv, random
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.header import Header
-from utils import *
 import socks
 import time
 from loguru import logger
