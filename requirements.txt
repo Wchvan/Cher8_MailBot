@@ -1,0 +1,11 @@
+smtplib
+ssl
+csv
+random
+EmailMessage
+socks
+loguru
+tkinter
+PIL
+bs4
+threading
