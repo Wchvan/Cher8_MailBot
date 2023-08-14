@@ -11,6 +11,7 @@ from PIL import ImageTk, Image
 from bs4 import BeautifulSoup
 from tkinter import scrolledtext
 import threading
+from contant import get_html
 
 
 class MailServer:
@@ -95,15 +96,19 @@ class MailServer:
                 logger.error(f"Server error sending email From {sender} to {receiver[1]}: {e}")
                 with open('error.txt', "a") as file:
                     file.write(f"Server error sending email From {sender} to {receiver[1]}: {e} \n")
+        self.text_area.insert(tk.END ,f'All is OK, please close \n')
         time.sleep(10)
 
     def send_mail(self, server, sender, receiver):
         message = MIMEMultipart()
-        html_file = random.choice(self.html_file_list)
-        with open(html_file, 'r', encoding='utf-8') as file:
-            html_content = file.read()
-        soup = BeautifulSoup(html_content, 'html.parser')
-        html_text = str(soup)
+        if len(self.html_file_list):
+            html_file = random.choice(self.html_file_list)
+            with open(html_file, 'r', encoding='utf-8') as file:
+                html_content = file.read()
+            soup = BeautifulSoup(html_content, 'html.parser')
+            html_text = str(soup)
+        else:
+            html_text = get_html(receiver=receiver[0])
         message["From"] = Header(f'{self.name} <{sender}>')
         message["To"] = Header(receiver[0].lower())
         message["Subject"] = Header(self.subject)
@@ -235,7 +240,7 @@ class robot_gui:
         self.content_file_list_lbl.configure(text=f'已选择的文件：{file_paths_str}')
 
     def confirm_btn_clicked(self):
-        if len(self.content_file_list) and len(self.receiver_file_list) and len(self.sender_file_list) \
+        if len(self.receiver_file_list) and len(self.sender_file_list) \
                 and self.name_entry.get() and self.subject_entry.get()  and self.port_entry.get():
             logger.info('sender_file_list:' + str(self.sender_file_list) + '\n'
                         + 'receiver_file_list:' + str(self.receiver_file_list) + '\n'
