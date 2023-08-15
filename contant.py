@@ -14,13 +14,13 @@ def get_html(receiver, index=0):
 
 <body>
     <a href="https://cher8.com/influencer" style="text-decoration: none;">
-        <div style="display: flex; flex-direction: row;width: 95%; margin: 2.5%; background-color: rgb(243, 243, 243); padding: 10px;border-radius: 20px;">
-            <div style="flex: 1; height: fit-content; ">
-                <img src="https://cher8-app.s3.us-east-2.amazonaws.com/ops/icon.png" alt="" style="width: 100%; height: 100%; border-radius: 10px;">
+        <div style="display: flex; flex-direction: row;width: 90%;height: 8rem; margin: 2.5%; background-color: rgb(243, 243, 243); padding: 10px;border-radius: 20px;">
+            <div style="flex: 1; height: fit-content; position: relative; top: 50%; transform: translateY(-50%); left: 10px;">
+                <img src="https://cher8-app.s3.us-east-2.amazonaws.com/ops/icon.png" alt="" style="width: 6rem; height: 6rem; border-radius: 10px;">
             </div>
             <div style=" padding-left: 20px; flex: 5; display: flex; flex-direction: column; justify-content:center; margin-top: -20px;">
-                <div style=" color: #121212;text-shadow: 1px 1px 1px #000; font-weight: 1000; font-size: 24px;">Cher8-life brochure: Share, Earn,Fair</div>
-                <div style="color: gray; text-indent: 1px;">Transform your unique creations into valuable rewards and embrace a fair and
+                <div style=" color: #121212;text-shadow: 0.5px 0.5px 0.5px #000; font-weight: 1000; font-size: 1.25rem;">Cher8-life brochure: Share, Earn,Fair</div>
+                <div style="color: gray; text-indent: 1px; font-size: 1rem;">Transform your unique creations into valuable rewards and embrace a fair and
                     transparent ecosystem</div>
             </div>
         </div>

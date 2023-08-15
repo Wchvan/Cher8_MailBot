@@ -2,6 +2,7 @@ import smtplib, ssl, csv, random
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.header import Header
+from email.mime.application import MIMEApplication
 import socks
 import time
 from loguru import logger
@@ -65,7 +66,7 @@ class MailServer:
                 # sec = [1, 2, 3, 4, 5, 6]
                 context = ssl.create_default_context()
                 time.sleep(1)
-                server = smtplib.SMTP_SSL('smtp.gmail.com', port=465, context=context, timeout=5)
+                server = smtplib.SMTP_SSL('smtp.gmail.com', port=465, context=context, timeout=30)
                 server.login(sender, password)
                 logger.info('启动server成功')
                 try:
@@ -116,10 +117,15 @@ class MailServer:
         message.attach(mail_content)
 
         for file in self.mail_file_list:
-            att = MIMEText(open(file, 'rb').read(), 'base64', 'urf-8')
-            att["Content-Type"] = 'application/octet-stream'  # 这里的filename可以任意写，写什么名字，邮件中显示什么名字
-            att["Content-Disposition"] = 'attachment; filename={}'.format(file.split('/')[-1])
-            message.attach(att)
+            if file.split('/')[-1].split('.')[-1] == 'pdf':
+                pdfApart = MIMEApplication(open(file, 'rb').read())
+                pdfApart.add_header('Content-Disposition', 'attachment', filename=file.split('/')[-1])
+                message.attach(pdfApart)
+            else:
+                att = MIMEText(open(file, 'rb').read(), 'base64', 'utf-8')
+                att["Content-Type"] = 'application/octet-stream'  # 这里的filename可以任意写，写什么名字，邮件中显示什么名字
+                att["Content-Disposition"] = 'attachment; filename={}'.format(file.split('/')[-1])
+                message.attach(att)
 
         server.sendmail(sender, receiver[1], message.as_string())
 
