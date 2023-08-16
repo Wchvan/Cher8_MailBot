@@ -18,9 +18,9 @@ from contant import get_html
 class MailServer:
     def __init__(self, proxy_port, sender_file, receiver_file_list, html_file_list, subject, name, mail_file_list):
         # 如果在国内的话挂上本机VPN代理监听端口
-        if proxy_port != '-1':
-            socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS5, '127.0.0.1', int(proxy_port), True)
-            socks.wrapmodule(smtplib)
+        # if proxy_port != '-1':
+        #     socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS5, '127.0.0.1', int(proxy_port), True)
+        #     socks.wrapmodule(smtplib)
 
         self.html_file_list = html_file_list
         self.sender_file = sender_file
