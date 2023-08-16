@@ -124,7 +124,7 @@ class MailServer:
             html_text = get_html(receiver=receiver[0], sender = random_sender[2], category=receiver[3], index=int(receiver[2]))
         message["From"] = Header(f'{self.name} <{sender}>')
         message["To"] = Header(receiver[0].lower())
-        message["Subject"] = Header(self.subject)
+        message["Subject"] = Header(receiver[4])
         mail_content = MIMEText(html_text, _subtype='html')
         message.attach(mail_content)
 
