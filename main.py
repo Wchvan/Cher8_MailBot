@@ -48,45 +48,59 @@ class MailServer:
         with open(self.sender_file) as f:
             sender_list = [row for row in csv.reader(f)]
 
-        receiver_file = random.choice(self.receiver_file_list)
-        with open(receiver_file, 'r', encoding='ISO-8859-1') as f:
-            receiver_list = [row for row in csv.reader(f)]
+        for receiver_file in self.receiver_file_list:
+            with open(receiver_file, 'r', encoding='ISO-8859-1') as f:
+                receiver_list = [row for row in csv.reader(f)]
 
-        for receiver in receiver_list:
-            random_sender = random.choice(sender_list)
-            sender = random_sender[0]
-            password = random_sender[1]
+            for receiver in receiver_list:
+                random_sender = random.choice(sender_list)
+                sender = random_sender[0]
+                password = random_sender[1]
 
-            if sender not in self.counter:
-                self.counter[sender] = 0
+                if sender not in self.counter:
+                    self.counter[sender] = 0
 
-            if self.counter[sender] >= 3:
-                continue
-            try:
-                # sec = [1, 2, 3, 4, 5, 6]
-                context = ssl.create_default_context()
-                time.sleep(1)
-                server = smtplib.SMTP_SSL('smtp.gmail.com', port=465, context=context, timeout=30)
-                server.login(sender, password)
-                logger.info('启动server成功')
+                if self.counter[sender] >= 3:
+                    continue
                 try:
-                    self.send_mail(server, sender, receiver)
-                    logger.info(f'Sender: {sender}, Receiver: {receiver[1]}, Status: Success!')
-                    with open('res.csv', "a") as csvfile:
-                        data = [sender, receiver[1], 1]
-                        csv_writer = csv.writer(csvfile)
-                        csv_writer.writerow(data)
-                    self.text_area.insert(tk.END ,f'Sender: {sender}, Receiver: {receiver[1]}, Status: Success! \n')
-                    self.window.update()
+                    # sec = [1, 2, 3, 4, 5, 6]
+                    context = ssl.create_default_context()
+                    time.sleep(1)
+                    server = smtplib.SMTP_SSL('smtp.gmail.com', port=465, context=context, timeout=30)
+                    server.login(sender, password)
+                    logger.info('启动server成功')
+                    try:
+                        self.send_mail(server, sender, receiver)
+                        logger.info(f'Sender: {sender}, Receiver: {receiver[1]}, Status: Success!')
+                        with open('res.csv', "a") as csvfile:
+                            data = [sender, receiver[1], 1]
+                            csv_writer = csv.writer(csvfile)
+                            csv_writer.writerow(data)
+                        self.text_area.insert(tk.END ,f'Sender: {sender}, Receiver: {receiver[1]}, Status: Success! \n')
+                        self.window.update()
 
+                    except Exception as e:
+                        self.counter[sender] += 1
+                        logger.error(f"Mail error sending email From {sender} to {receiver[1]}: {e}")
+                        self.text_area.insert(tk.END ,f'Sender: {sender}, Receiver: {receiver[1]}, Status: Failed! \n')
+
+                        with open('error.txt', "a") as file:
+                            file.write(f"Mail error sending email From {sender} to {receiver[1]}: {e} \n")
+
+                        with open('res.csv', "a") as csvfile:
+                            data = [sender, receiver[1], 0]
+                            csv_writer = csv.writer(csvfile)
+                            csv_writer.writerow(data)
+                        with open('fail_email.csv', "a") as csvfile:
+                            data = [receiver[0], receiver[1]]
+                            csv_writer = csv.writer(csvfile)
+                            csv_writer.writerow(data)
                 except Exception as e:
                     self.counter[sender] += 1
-                    logger.error(f"Mail error sending email From {sender} to {receiver[1]}: {e}")
                     self.text_area.insert(tk.END ,f'Sender: {sender}, Receiver: {receiver[1]}, Status: Failed! \n')
-
+                    logger.error(f"Server error sending email From {sender} to {receiver[1]}: {e}")
                     with open('error.txt', "a") as file:
-                        file.write(f"Mail error sending email From {sender} to {receiver[1]}: {e} \n")
-
+                        file.write(f"Server error sending email From {sender} to {receiver[1]}: {e} \n")
                     with open('res.csv', "a") as csvfile:
                         data = [sender, receiver[1], 0]
                         csv_writer = csv.writer(csvfile)
@@ -95,22 +109,8 @@ class MailServer:
                         data = [receiver[0], receiver[1]]
                         csv_writer = csv.writer(csvfile)
                         csv_writer.writerow(data)
-            except Exception as e:
-                self.counter[sender] += 1
-                self.text_area.insert(tk.END ,f'Sender: {sender}, Receiver: {receiver[1]}, Status: Failed! \n')
-                logger.error(f"Server error sending email From {sender} to {receiver[1]}: {e}")
-                with open('error.txt', "a") as file:
-                    file.write(f"Server error sending email From {sender} to {receiver[1]}: {e} \n")
-                with open('res.csv', "a") as csvfile:
-                    data = [sender, receiver[1], 0]
-                    csv_writer = csv.writer(csvfile)
-                    csv_writer.writerow(data)
-                with open('fail_email.csv', "a") as csvfile:
-                    data = [receiver[0], receiver[1]]
-                    csv_writer = csv.writer(csvfile)
-                    csv_writer.writerow(data)
         self.text_area.insert(tk.END ,f'All is OK, please close \n')
-        time.sleep(10)
+        time.sleep(2)
 
     def send_mail(self, server, sender, receiver):
         message = MIMEMultipart()
