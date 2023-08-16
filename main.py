@@ -70,7 +70,7 @@ class MailServer:
                     server.login(sender, password)
                     logger.info('启动server成功')
                     try:
-                        self.send_mail(server, sender, receiver)
+                        self.send_mail(server, sender, receiver, random_sender)
                         logger.info(f'Sender: {sender}, Receiver: {receiver[1]}, Status: Success!')
                         with open('res.csv', "a") as csvfile:
                             data = [sender, receiver[1], 1]
@@ -112,7 +112,7 @@ class MailServer:
         self.text_area.insert(tk.END ,f'All is OK, please close \n')
         time.sleep(2)
 
-    def send_mail(self, server, sender, receiver):
+    def send_mail(self, server, sender, receiver, random_sender):
         message = MIMEMultipart()
         if len(self.html_file_list):
             html_file = random.choice(self.html_file_list)
@@ -121,7 +121,7 @@ class MailServer:
             soup = BeautifulSoup(html_content, 'html.parser')
             html_text = str(soup)
         else:
-            html_text = get_html(receiver=receiver[0], sender = self.name, category=receiver[3], index=int(receiver[2]))
+            html_text = get_html(receiver=receiver[0], sender = random_sender[2], category=receiver[3], index=int(receiver[2]))
         message["From"] = Header(f'{self.name} <{sender}>')
         message["To"] = Header(receiver[0].lower())
         message["Subject"] = Header(self.subject)

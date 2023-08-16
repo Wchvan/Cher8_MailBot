@@ -25,7 +25,7 @@ def get_html(receiver, sender, category, index=0):
                 style=" padding-left: 20px; flex: 5; display: flex; flex-direction: column; justify-content:center; margin-top: -20px;">
                 <div
                     style=" color: #121212;text-shadow: 0.5px 0.5px 0.5px #000; font-weight: 1000; font-size: 1.25rem;">
-                    Cher8: Web3 Life br /ochure Social Platform</div>
+                    Cher8: Web3 Life brochure Social Platform</div>
                 <div style="color: gray; text-indent: 1px; font-size: 1rem;"> Your life guide platform</div>
             </div>
         </div>
@@ -123,7 +123,7 @@ def get_html(receiver, sender, category, index=0):
                 style=" padding-left: 20px; flex: 5; display: flex; flex-direction: column; justify-content:center; margin-top: -20px;">
                 <div
                     style=" color: #121212;text-shadow: 0.5px 0.5px 0.5px #000; font-weight: 1000; font-size: 1.25rem;">
-                    Cher8: Web3 Life br /ochure Social Platform</div>
+                    Cher8: Web3 Life brochure Social Platform</div>
                 <div style="color: gray; text-indent: 1px; font-size: 1rem;"> Your life guide platform</div>
             </div>
         </div>
@@ -220,7 +220,7 @@ def get_html(receiver, sender, category, index=0):
                 style=" padding-left: 20px; flex: 5; display: flex; flex-direction: column; justify-content:center; margin-top: -20px;">
                 <div
                     style=" color: #121212;text-shadow: 0.5px 0.5px 0.5px #000; font-weight: 1000; font-size: 1.25rem;">
-                    Cher8: Web3 Life br /ochure Social Platform</div>
+                    Cher8: Web3 Life brochure Social Platform</div>
                 <div style="color: gray; text-indent: 1px; font-size: 1rem;"> Your life guide platform</div>
             </div>
         </div>
