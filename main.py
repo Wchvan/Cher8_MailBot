@@ -3,7 +3,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.header import Header
 from email.mime.application import MIMEApplication
-import socks
+# import socks
 import time
 from loguru import logger
 import tkinter as tk  # 在代码里面导入库，起一个别名，以后代码里面就用这个别名
