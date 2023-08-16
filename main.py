@@ -121,7 +121,7 @@ class MailServer:
             soup = BeautifulSoup(html_content, 'html.parser')
             html_text = str(soup)
         else:
-            html_text = get_html(receiver=receiver[0], sender = self.name, category=receiver[3], index=receiver[2])
+            html_text = get_html(receiver=receiver[0], sender = self.name, category=receiver[3], index=int(receiver[2]))
         message["From"] = Header(f'{self.name} <{sender}>')
         message["To"] = Header(receiver[0].lower())
         message["Subject"] = Header(self.subject)
