@@ -91,12 +91,24 @@ class MailServer:
                         data = [sender, receiver[1], 0]
                         csv_writer = csv.writer(csvfile)
                         csv_writer.writerow(data)
+                    with open('fail_email.csv', "a") as csvfile:
+                        data = [receiver[0], receiver[1]]
+                        csv_writer = csv.writer(csvfile)
+                        csv_writer.writerow(data)
             except Exception as e:
                 self.counter[sender] += 1
                 self.text_area.insert(tk.END ,f'Sender: {sender}, Receiver: {receiver[1]}, Status: Failed! \n')
                 logger.error(f"Server error sending email From {sender} to {receiver[1]}: {e}")
                 with open('error.txt', "a") as file:
                     file.write(f"Server error sending email From {sender} to {receiver[1]}: {e} \n")
+                with open('res.csv', "a") as csvfile:
+                    data = [sender, receiver[1], 0]
+                    csv_writer = csv.writer(csvfile)
+                    csv_writer.writerow(data)
+                with open('fail_email.csv', "a") as csvfile:
+                    data = [receiver[0], receiver[1]]
+                    csv_writer = csv.writer(csvfile)
+                    csv_writer.writerow(data)
         self.text_area.insert(tk.END ,f'All is OK, please close \n')
         time.sleep(10)
 

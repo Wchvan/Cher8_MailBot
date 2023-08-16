@@ -13,9 +13,9 @@ def get_html(receiver, index=0):
 </head>
 
 <body>
-    <a href="https://cher8.com/influencer" style="text-decoration: none;">
+    <a href="#" style="text-decoration: none;">
         <div style="display: flex; flex-direction: row;width: 90%;height: 8rem; margin: 2.5%; background-color: rgb(243, 243, 243); padding: 10px;border-radius: 20px;">
-            <div style="flex: 1; height: fit-content; position: relative; top: 50%; transform: translateY(-50%); left: 10px;">
+            <div style="flex: 1; height: fit-content; position: relative; top: 1rem;  left: 10px;">
                 <img src="https://cher8-app.s3.us-east-2.amazonaws.com/ops/icon.png" alt="" style="width: 6rem; height: 6rem; border-radius: 10px;">
             </div>
             <div style=" padding-left: 20px; flex: 5; display: flex; flex-direction: column; justify-content:center; margin-top: -20px;">
@@ -25,7 +25,7 @@ def get_html(receiver, index=0):
             </div>
         </div>
     </a>
-    <a href="https://cher8.com/influencer">
+    <a  href="https://www.cher8.com/invite-link?key=influencer">
       <img src="https://cher8-app.s3.us-east-2.amazonaws.com/ops/ops_email_1.png"
         style="width: 95%; margin: 2.5%; aspect-ratio: 2;" alt="">
     </a>
@@ -54,7 +54,7 @@ def get_html(receiver, index=0):
         Still curious to know more? Join us now
     </p>
     
-    <a href="https://cher8.com/influencer">
+    <a href="https://www.cher8.com/invite-link?key=influencer">
         <img src=" https://cher8-app.s3.us-east-2.amazonaws.com/ops/ops_email_2.png"
           style="width: 95%; margin: 2.5%; aspect-ratio: 2;" alt="">
       </a>
@@ -74,6 +74,9 @@ def get_html(receiver, index=0):
         Join now and start revolutionizing the way you create on Cher8.
         <br>
         <br>
+        Download Now：<a href="https://www.cher8.com/invite-link?key=download">www.cher8.com/invite-link?key=download</a>
+        <br>
+        <br>
         Best regards,
         <br>
         Cher8 Creator Center
@@ -84,8 +87,8 @@ def get_html(receiver, index=0):
     </div>
 </body>
 
-</html>
-    """
+</html>  """
+
 
     html_template_list = [html_text_1]
 
